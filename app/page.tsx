@@ -1,23 +1,23 @@
-import { Metadata } from 'next'
-import Image from 'next/image'
+import { Metadata } from "next";
+import Image from "next/image";
 
-import { MaxLengthSelector } from '@/components/maxlength-selector'
-import { ModelSelector } from '@/components/model-selector'
-import { PresetActions } from '@/components/preset-actions'
-import { PresetSelector } from '@/components/preset-selector'
-import { TemperatureSelector } from '@/components/temperature-selector'
-import { TopPSelector } from '@/components/top-p-selector'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
-import { presets } from '@/data/presets'
+import { MaxLengthSelector } from "@/components/maxlength-selector";
+import { ModelSelector } from "@/components/model-selector";
+import { PresetActions } from "@/components/preset-actions";
+import { PresetSelector } from "@/components/preset-selector";
+import { TemperatureSelector } from "@/components/temperature-selector";
+import { TopPSelector } from "@/components/top-p-selector";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { presets } from "@/data/presets";
 
-import { models, types } from '../data/models'
+import { models, types } from "../data/models";
 
 export const metadata: Metadata = {
   title: "Jarvis",
   description: "The AI Assistant for working and living better.",
-}
+};
 
 export default function PlaygroundPage() {
   return (
@@ -39,9 +39,7 @@ export default function PlaygroundPage() {
         />
       </div>
       <div className="hidden h-full flex-col md:flex">
-        <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="font-semibold text-2xl">Jarvis</h2>
-        </div>
+        <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16"></div>
         <Separator />
 
         <div className="container h-full py-6">
@@ -55,6 +53,12 @@ export default function PlaygroundPage() {
             <div className="md:order-1">
               <div className="ml-auto flex w-full space-x-2 pb-2 sm:justify-between">
                 <PresetSelector presets={presets} />
+                <div className="hidden space-x-2 md:flex">
+                  <Button variant="outline" size="icon">
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                  <PresetShare />
+                </div>
                 <PresetActions />
               </div>
               <div className="flex flex-col w-full space-y-2">
@@ -84,5 +88,5 @@ export default function PlaygroundPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
