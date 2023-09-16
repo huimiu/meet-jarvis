@@ -1,18 +1,19 @@
-import { Metadata } from "next";
-import Image from "next/image";
+import { Metadata } from 'next'
+import Image from 'next/image'
 
-import { MaxLengthSelector } from "@/components/maxlength-selector";
-import { ModelSelector } from "@/components/model-selector";
-import { PresetActions } from "@/components/preset-actions";
-import { PresetSelector } from "@/components/preset-selector";
-import { TemperatureSelector } from "@/components/temperature-selector";
-import { TopPSelector } from "@/components/top-p-selector";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { presets } from "@/data/presets";
+import { MaxLengthSelector } from '@/components/maxlength-selector'
+import { ModelSelector } from '@/components/model-selector'
+import { PresetActions } from '@/components/preset-actions'
+import { PresetSelector } from '@/components/preset-selector'
+import { TemperatureSelector } from '@/components/temperature-selector'
+import { TopPSelector } from '@/components/top-p-selector'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textarea'
+import { presets } from '@/data/presets'
 
-import { models, types } from "../data/models";
+import { models, types } from '../data/models'
 
 export const metadata: Metadata = {
   title: "Jarvis",
@@ -51,36 +52,27 @@ export default function PlaygroundPage() {
               <TopPSelector defaultValue={[0.9]} />
             </div>
             <div className="md:order-1">
-              <div className="ml-auto flex w-full space-x-2 pb-2 sm:justify-between">
-                <PresetSelector presets={presets} />
-                <div className="hidden space-x-2 md:flex">
-                  <Button variant="outline" size="icon">
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <PresetShare />
-                </div>
-                <PresetActions />
-              </div>
               <div className="flex flex-col w-full space-y-2">
-                <div className="grid gap-6">
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex flex-col space-y-2">
-                      <Textarea
-                        id="input"
-                        placeholder="We is going to the market."
-                        className="flex-1 lg:min-h-[580px]"
-                      />
-                    </div>
-                    <div className="flex flex-col space-y-2">
-                      <Textarea
-                        id="instructions"
-                        placeholder="Fix the grammar."
-                      />
-                    </div>
+                <div className="grid gap-2">
+                  <div className="flex flex-col">
+                    <Textarea
+                      id="instructions"
+                      placeholder="Input prompt..."
+                    />
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Button>Submit</Button>
+                  <div className="ml-auto flex w-full space-x-2 sm:justify-between">
+                    <div className="space-x-2">
+                      <PresetSelector presets={presets} />
+                      <Button variant="outline">Submit</Button>
+                      <Button variant="outline">Clear</Button>
+                    </div>
+                    <PresetActions />
+                  </div>
+                  <div className="flex flex-col space-y-2">
+                    <Card>
+                      <CardContent>Test</CardContent>
+                    </Card>
+                  </div>
                 </div>
               </div>
             </div>
