@@ -70,7 +70,7 @@ export default function PlaygroundPage() {
                   </div>
                   <div className="flex flex-col space-y-2">
                     <Card>
-                      <CardContent>Test</CardContent>
+                      <CardContent>Response...</CardContent>
                     </Card>
                   </div>
                 </div>
