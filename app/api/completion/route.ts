@@ -1,7 +1,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   // call Azure OpenAI API with fetch
   try {
     const response = await fetch(`${process.env.AZURE_OAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OAI_DEPLOYMENT}/chat/completions?api-version=${process.env.AZURE_OAI_API_VERSION}`, {
@@ -25,13 +25,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
         },
         {
           "role": "user",
-          "content": "What is Azure OpenAI's pricing?"
+          "content": (await req.json()).content
         }]
       }),
     })
-    const data = await response.json();
-    const res = data.choices[0].message.content;
-    return NextResponse.json({ response: res });
+    const res = await response.json();
+    return NextResponse.json({ data: res.choices[0].message.content });
   } catch (e) {
     return NextResponse.error()
   }
