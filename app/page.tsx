@@ -8,7 +8,6 @@ import { PresetSelector } from '@/components/preset-selector'
 import { TemperatureSelector } from '@/components/temperature-selector'
 import { TopPSelector } from '@/components/top-p-selector'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { presets } from '@/data/presets'
@@ -58,6 +57,7 @@ export default function PlaygroundPage() {
                     <Textarea
                       id="instructions"
                       placeholder="Input prompt..."
+                      className="h-[200px]"
                     />
                   </div>
                   <div className="ml-auto flex w-full space-x-2 sm:justify-between">
@@ -68,10 +68,12 @@ export default function PlaygroundPage() {
                     </div>
                     <PresetActions />
                   </div>
-                  <div className="flex flex-col space-y-2">
-                    <Card>
-                      <CardContent>Response...</CardContent>
-                    </Card>
+                  <div className="flex flex-col">
+                    <Textarea
+                      id="instructions"
+                      placeholder="Response..."
+                      className="h-[300px]"
+                    />
                   </div>
                 </div>
               </div>
