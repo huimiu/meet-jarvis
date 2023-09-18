@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { presets } from '@/data/presets'
+import { presets } from '@/data/presets';
 
-import { PresetActions } from './preset-actions'
-import { PresetSelector } from './preset-selector'
-import { Button } from './ui/button'
-import { Textarea } from './ui/textarea'
+import { PresetActions } from './preset-actions';
+import { PresetSelector } from './preset-selector';
+import { Button } from './ui/button';
+import { Textarea } from './ui/textarea';
 
 export function ChatPanel() {
-  const [question, setQuestion] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
   return (
     <div className='grid gap-2'>
       <div className='flex flex-col'>
@@ -28,8 +28,8 @@ export function ChatPanel() {
           <Button
             variant='outline'
             onClick={async () => {
-              const res = await submitRequest(question)
-              setAnswer(res.data.content)
+              const res = await aiCompletion(question);
+              setAnswer(res.data);
             }}
           >
             Submit
@@ -48,10 +48,10 @@ export function ChatPanel() {
         />
       </div>
     </div>
-  )
+  );
 }
 
-const submitRequest = async (question: string) => {
+const aiCompletion = async (question: string) => {
   // app route api/completion
   return await fetch('/api/completion', {
     method: 'POST',
@@ -61,5 +61,5 @@ const submitRequest = async (question: string) => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((res) => res.json())
-}
+  }).then((res) => res.json());
+};
