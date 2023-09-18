@@ -1,5 +1,7 @@
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
+
+import { prompts } from '@/data/prompts';
 
 export async function POST(req: NextRequest) {
   // call Azure OpenAI API with fetch
@@ -11,18 +13,8 @@ export async function POST(req: NextRequest) {
         'api-key': `${process.env.AZURE_OAI_API_KEY}`,
       },
       body: JSON.stringify({
-        messages: [{
-          "role": "system",
-          "content": "Hello, I'm Hui. I'm a chatbot that can help you with your Azure OpenAI questions."
-        },
-        {
-          "role": "user",
-          "content": "What is Azure OpenAI?"
-        },
-        {
-          "role": "assistant",
-          "content": "Azure OpenAI is a cloud-based service that provides advanced natural language processing over the cloud."
-        },
+        messages: [
+          ...prompts[0].messages,
         {
           "role": "user",
           "content": (await req.json()).content
