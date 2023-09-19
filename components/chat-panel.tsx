@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
-import { presets } from '@/data/presets';
+import { prompts } from '@/data/prompts';
 
 import { PresetActions } from './preset-actions';
-import { PresetSelector } from './preset-selector';
+import { PromptSelector } from './prompt-selector';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 
@@ -24,7 +24,7 @@ export function ChatPanel() {
       </div>
       <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
         <div className='space-x-2'>
-          <PresetSelector presets={presets} />
+          <PromptSelector prompts={prompts} />
           <Button
             variant='outline'
             onClick={async () => {
