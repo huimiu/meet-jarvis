@@ -24,11 +24,17 @@ import { Prompt } from '../data/prompts';
 
 interface PromptSelectorProps extends PopoverProps {
   prompts: Prompt[];
+  selectedPrompt?: Prompt;
+  handlePromptChange: (prompt: Prompt) => void;
 }
 
-export function PromptSelector({ prompts, ...props }: PromptSelectorProps) {
+export function PromptSelector({
+  prompts,
+  selectedPrompt,
+  handlePromptChange,
+  ...props
+}: PromptSelectorProps) {
   const [open, setOpen] = React.useState(false);
-  const [selectedPrompt, setSelectedPrompt] = React.useState<Prompt>();
   const router = useRouter();
 
   return (
@@ -54,7 +60,7 @@ export function PromptSelector({ prompts, ...props }: PromptSelectorProps) {
               <CommandItem
                 key={p.id}
                 onSelect={() => {
-                  setSelectedPrompt(p);
+                  handlePromptChange(p);
                   setOpen(false);
                 }}
               >

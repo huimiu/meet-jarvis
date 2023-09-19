@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { prompts } from '@/data/prompts';
+import { Prompt, prompts } from '@/data/prompts';
 
 import { PresetActions } from './preset-actions';
 import { PromptSelector } from './prompt-selector';
@@ -12,6 +12,11 @@ import { Textarea } from './ui/textarea';
 export function ChatPanel() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt>();
+  const handlePromptChange = (prompt: Prompt | undefined) => {
+    setSelectedPrompt(prompt);
+    setAnswer('');
+  };
   return (
     <div className='grid gap-2'>
       <div className='flex flex-col'>
@@ -24,7 +29,11 @@ export function ChatPanel() {
       </div>
       <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
         <div className='space-x-2'>
-          <PromptSelector prompts={prompts} />
+          <PromptSelector
+            prompts={prompts}
+            selectedPrompt={selectedPrompt}
+            handlePromptChange={handlePromptChange}
+          />
           <Button
             variant='outline'
             onClick={async () => {
@@ -34,7 +43,15 @@ export function ChatPanel() {
           >
             Submit
           </Button>
-          <Button variant='outline'>Clear</Button>
+          <Button
+            variant='outline'
+            onClick={() => {
+              setQuestion('');
+              setAnswer('');
+            }}
+          >
+            Clear
+          </Button>
         </div>
         <PresetActions />
       </div>
@@ -52,7 +69,6 @@ export function ChatPanel() {
 }
 
 const aiCompletion = async (question: string) => {
-  // app route api/completion
   return await fetch('/api/completion', {
     method: 'POST',
     body: JSON.stringify({
