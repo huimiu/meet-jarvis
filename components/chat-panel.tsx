@@ -13,6 +13,7 @@ export function ChatPanel() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>();
+  const [loading, setLoading] = useState(false);
   const handlePromptChange = (prompt: Prompt | undefined) => {
     setSelectedPrompt(prompt);
     setAnswer('');
@@ -22,28 +23,39 @@ export function ChatPanel() {
       <div className='flex flex-col'>
         <Textarea
           id='instructions'
-          placeholder='Input prompt...'
-          className='h-[200px]'
+          disabled={loading}
+          placeholder='Say something...'
+          className='h-[120px]'
           onChange={(e) => setQuestion(e.target.value)}
         />
       </div>
       <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
         <div className='space-x-2'>
           <PromptSelector
+            loading={loading}
             prompts={prompts}
             selectedPrompt={selectedPrompt}
             handlePromptChange={handlePromptChange}
           />
+          {loading ? (
+            <Button variant='outline' disabled>
+              Please wait
+            </Button>
+          ) : (
+            <Button
+              variant='outline'
+              onClick={async () => {
+                setLoading(true);
+                const res = await aiCompletion(question);
+                setAnswer(res.data);
+                setLoading(false);
+              }}
+            >
+              Submit
+            </Button>
+          )}
           <Button
-            variant='outline'
-            onClick={async () => {
-              const res = await aiCompletion(question);
-              setAnswer(res.data);
-            }}
-          >
-            Submit
-          </Button>
-          <Button
+            disabled={loading}
             variant='outline'
             onClick={() => {
               setQuestion('');

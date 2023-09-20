@@ -23,6 +23,7 @@ import { PopoverProps } from '@radix-ui/react-popover';
 import { Prompt } from '../data/prompts';
 
 interface PromptSelectorProps extends PopoverProps {
+  loading: boolean;
   prompts: Prompt[];
   selectedPrompt?: Prompt;
   handlePromptChange: (prompt: Prompt) => void;
@@ -32,6 +33,7 @@ export function PromptSelector({
   prompts,
   selectedPrompt,
   handlePromptChange,
+  loading,
   ...props
 }: PromptSelectorProps) {
   const [open, setOpen] = React.useState(false);
@@ -41,6 +43,7 @@ export function PromptSelector({
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>
         <Button
+          disabled={loading}
           variant='outline'
           role='combobox'
           aria-label='Select a prompt...'
