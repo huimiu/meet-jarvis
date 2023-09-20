@@ -12,7 +12,7 @@ export interface Prompt {
 export const prompts: Prompt[] = [
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
-    name: "Rewrite Spoken English",
+    name: "Rewrite with Spoken English",
     messages: [
       {
         "role": "system",
