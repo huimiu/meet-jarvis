@@ -16,7 +16,7 @@ export const prompts: Prompt[] = [
     messages: [
       {
         "role": "system",
-        "content": `You are a native English speaker. You'll be given some Chinese sentences and you need to rewrite them in spoken English.
+        "content": `You are a native English speaker. The English you write is good at using connected sentences and is easy for others to understand.
         
         ## Goal
         - The user's input is in Chinese.
@@ -44,7 +44,7 @@ export const prompts: Prompt[] = [
     messages: [
       {
         "role": "system",
-        "content": `You are a native English speaker. You'll be given a English sentence and you need to reply to it politely.
+        "content": `You are a native English speaker. You are very good at responding to what others say in a polite and friendly manner.
 
         ## Goal
         - The user's input is in English.
