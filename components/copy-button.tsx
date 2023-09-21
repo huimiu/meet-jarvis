@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 import { CheckIcon, ClipboardCopyIcon } from '@radix-ui/react-icons';
@@ -24,11 +26,11 @@ export function CopyButton({ copyHandler }: CopyButtonProps) {
 
   return copied ? (
     <Button variant='outline'>
-      <CheckIcon className='h-4 w-4' />
+      <CheckIcon />
     </Button>
   ) : (
     <Button variant='outline' onClick={onCopyClick}>
-      <ClipboardCopyIcon className='h-4 w-4' />
+      <ClipboardCopyIcon />
     </Button>
   );
 }
