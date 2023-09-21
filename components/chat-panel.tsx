@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { Prompt, prompts } from '@/data/prompts';
 
+import { CopyButton } from './copy-button';
 import { PresetActions } from './preset-actions';
 import { PromptSelector } from './prompt-selector';
 import { Button } from './ui/button';
@@ -14,10 +15,16 @@ export function ChatPanel() {
   const [answer, setAnswer] = useState('');
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>();
   const [loading, setLoading] = useState(false);
+
   const handlePromptChange = (prompt: Prompt | undefined) => {
     setSelectedPrompt(prompt);
     setAnswer('');
   };
+
+  function copyResponse() {
+    if (answer) navigator.clipboard.writeText(answer);
+  }
+
   return (
     <div className='grid gap-2'>
       <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
@@ -29,7 +36,10 @@ export function ChatPanel() {
             handlePromptChange={handlePromptChange}
           />
         </div>
-        <PresetActions />
+        <div className='space-x-2'>
+          <CopyButton copyHandler={copyResponse} />
+          <PresetActions />
+        </div>
       </div>
 
       <Textarea
