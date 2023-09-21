@@ -1,45 +1,58 @@
-"use client"
+'use client';
 
-import * as React from 'react'
+import * as React from 'react';
 
 import {
-  AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
-  AlertDialogHeader, AlertDialogTitle
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 import {
-  DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle
-} from '@/components/ui/dialog'
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { toast } from '@/components/ui/use-toast'
-import { Dialog } from '@radix-ui/react-dialog'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { toast } from '@/components/ui/use-toast';
+import { Dialog } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 export function PresetActions() {
-  const [open, setIsOpen] = React.useState(false)
-  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false)
+  const [open, setIsOpen] = React.useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
 
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <span className="sr-only">Actions</span>
-            <DotsHorizontalIcon className="h-4 w-4" />
+          <Button variant='outline'>
+            <span className='sr-only'>Actions</span>
+            <DotsHorizontalIcon className='h-4 w-4' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align='end'>
           <DropdownMenuItem onSelect={() => setIsOpen(true)}>
             Content filter preferences
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={() => setShowDeleteDialog(true)}
-            className="text-red-600"
+            className='text-red-600'
           >
             Delete preset
           </DropdownMenuItem>
@@ -55,17 +68,17 @@ export function PresetActions() {
               to moderate your OpenAI API traffic. Learn more.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-6">
-            <h4 className="text-sm text-muted-foreground">
+          <div className='py-6'>
+            <h4 className='text-sm text-muted-foreground'>
               Playground Warnings
             </h4>
-            <div className="flex items-start justify-between space-x-4 pt-3">
-              <Switch name="show" id="show" defaultChecked={true} />
-              <Label className="grid gap-1 font-normal" htmlFor="show">
-                <span className="font-semibold">
+            <div className='flex items-start justify-between space-x-4 pt-3'>
+              <Switch name='show' id='show' defaultChecked={true} />
+              <Label className='grid gap-1 font-normal' htmlFor='show'>
+                <span className='font-semibold'>
                   Show a warning when content is flagged
                 </span>
-                <span className="text-sm text-muted-foreground">
+                <span className='text-sm text-muted-foreground'>
                   A warning will be shown when sexual, hateful, violent or
                   self-harm content is detected.
                 </span>
@@ -73,7 +86,7 @@ export function PresetActions() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="secondary" onClick={() => setIsOpen(false)}>
+            <Button variant='secondary' onClick={() => setIsOpen(false)}>
               Close
             </Button>
           </DialogFooter>
@@ -91,12 +104,12 @@ export function PresetActions() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <Button
-              variant="destructive"
+              variant='destructive'
               onClick={() => {
-                setShowDeleteDialog(false)
+                setShowDeleteDialog(false);
                 toast({
-                  description: "This preset has been deleted.",
-                })
+                  description: 'This preset has been deleted.',
+                });
               }}
             >
               Delete
@@ -105,5 +118,5 @@ export function PresetActions() {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
+  );
 }
