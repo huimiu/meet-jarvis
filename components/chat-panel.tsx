@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { Prompt, prompts } from '@/data/prompts';
 
+import { ApiKey } from './api-key';
 import { CopyButton } from './copy-button';
-import { PresetActions } from './preset-actions';
 import { PromptSelector } from './prompt-selector';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
@@ -36,9 +36,9 @@ export function ChatPanel() {
             handlePromptChange={handlePromptChange}
           />
         </div>
-        <div className='space-x-2'>
+        <div className='ml-auto flex space-x-2'>
           <CopyButton copyHandler={copyResponse} />
-          <PresetActions />
+          <ApiKey />
         </div>
       </div>
 
