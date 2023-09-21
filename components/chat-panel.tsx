@@ -20,15 +20,6 @@ export function ChatPanel() {
   };
   return (
     <div className='grid gap-2'>
-      <div className='flex flex-col'>
-        <Textarea
-          id='instructions'
-          disabled={loading}
-          placeholder='Say something...'
-          className='h-[120px]'
-          onChange={(e) => setQuestion(e.target.value)}
-        />
-      </div>
       <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
         <div className='space-x-2'>
           <PromptSelector
@@ -37,6 +28,28 @@ export function ChatPanel() {
             selectedPrompt={selectedPrompt}
             handlePromptChange={handlePromptChange}
           />
+        </div>
+        <PresetActions />
+      </div>
+
+      <Textarea
+        id='instructions'
+        placeholder='Response...'
+        className='h-[300px]'
+        value={answer}
+        readOnly
+      />
+      <div className='flex flex-col'>
+        <Textarea
+          id='instructions'
+          disabled={loading}
+          placeholder='Input your prompt here...'
+          className='h-[120px]'
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+      </div>
+      <div className='ml-auto flex w-full space-x-2 sm:justify-between'>
+        <div className='space-x-2'>
           {loading ? (
             <Button variant='outline' disabled>
               Please wait
@@ -65,16 +78,6 @@ export function ChatPanel() {
             Clear
           </Button>
         </div>
-        <PresetActions />
-      </div>
-      <div className='flex flex-col'>
-        <Textarea
-          id='instructions'
-          placeholder='Response...'
-          className='h-[300px]'
-          value={answer}
-          readOnly
-        />
       </div>
     </div>
   );
