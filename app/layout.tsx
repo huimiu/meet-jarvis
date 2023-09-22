@@ -1,14 +1,11 @@
 import './globals.css';
 
-import { Inter } from 'next/font/google';
-
 import { MainNav } from '@/components/main-nav';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Separator } from '@/components/ui/separator';
 import { Toaster } from '@/components/ui/toaster';
 
 import type { Metadata } from 'next';
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -22,9 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className='bg-backgroundColor'>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <div className='hidden h-full flex-col md:flex'>
+          <div className='h-full flex-col md:flex'>
             <div className='container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16'>
               <MainNav />
             </div>
