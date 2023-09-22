@@ -22,7 +22,7 @@ export function MainNav({
 
   return (
     <div className='mr-4 hidden md:flex'>
-      <nav className='flex items-center space-x-8 text-sm font-normal'>
+      <nav className='flex items-center space-x-8 text-base font-normal'>
         {examples.map((e) => (
           <Link
             href={e.href}

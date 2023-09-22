@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='bg-backgroundColor'>
+      <body className='bg-zinc-950 font-sans'>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <div className='h-full flex-col md:flex'>
             <div className='container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16'>
