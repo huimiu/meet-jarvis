@@ -1,4 +1,11 @@
+import { Metadata } from 'next';
+
 import { PromptCard } from '@/components/prompt-card';
+
+export const metadata: Metadata = {
+  title: 'Prompts',
+  description: 'Prompts for Jarvis.',
+};
 
 export default function Prompts() {
   return (
