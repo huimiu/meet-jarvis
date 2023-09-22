@@ -1,41 +1,27 @@
-import { Metadata } from 'next'
-import Image from 'next/image'
+import { Metadata } from 'next';
 
-import { ChatPanel } from '@/components/chat-panel'
-import { MaxLengthSelector } from '@/components/maxlength-selector'
-import { ModelSelector } from '@/components/model-selector'
-import { TemperatureSelector } from '@/components/temperature-selector'
-import { TopPSelector } from '@/components/top-p-selector'
-import { Separator } from '@/components/ui/separator'
+import { ChatPanel } from '@/components/chat-panel';
+import { MainNav } from '@/components/main-nav';
+import { MaxLengthSelector } from '@/components/maxlength-selector';
+import { ModelSelector } from '@/components/model-selector';
+import { TemperatureSelector } from '@/components/temperature-selector';
+import { TopPSelector } from '@/components/top-p-selector';
+import { Separator } from '@/components/ui/separator';
 
-import { models, types } from '../data/models'
+import { models, types } from '../data/models';
 
 export const metadata: Metadata = {
   title: 'Jarvis',
   description: 'The AI Assistant for working and living better.',
-}
+};
 
-export default function PlaygroundPage() {
+export default function JarvisPage() {
   return (
     <>
-      <div className='md:hidden'>
-        <Image
-          src='/examples/playground-light.png'
-          width={1280}
-          height={916}
-          alt='Playground'
-          className='block dark:hidden'
-        />
-        <Image
-          src='/examples/playground-dark.png'
-          width={1280}
-          height={916}
-          alt='Playground'
-          className='hidden dark:block'
-        />
-      </div>
       <div className='hidden h-full flex-col md:flex'>
-        <div className='container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16'></div>
+        <div className='container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16'>
+          <MainNav />
+        </div>
         <Separator />
 
         <div className='container h-full py-6'>
@@ -55,5 +41,5 @@ export default function PlaygroundPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
