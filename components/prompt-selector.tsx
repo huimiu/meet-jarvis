@@ -10,6 +10,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandSeparator,
 } from '@/components/ui/command';
 import {
   Popover,
@@ -77,6 +78,7 @@ export function PromptSelector({
               </CommandItem>
             ))}
           </CommandGroup>
+          <CommandSeparator />
           <CommandGroup className='pt-0'>
             <CommandItem onSelect={() => router.push('/examples')}>
               More prompts
