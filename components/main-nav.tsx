@@ -25,6 +25,7 @@ export function MainNav({
       <nav className='flex items-center space-x-8 text-base font-normal'>
         {examples.map((e) => (
           <Link
+            key={e.href}
             href={e.href}
             className={
               pathname === e.href
