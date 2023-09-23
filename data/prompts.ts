@@ -4,9 +4,10 @@ export interface ChatModel {
 }
 
 export interface Prompt {
-  id: string
-  name: string
-  messages: ChatModel[]
+  id: string,
+  name: string,
+  messages: ChatModel[],
+  tags: string[],
 }
 
 export const prompts: Prompt[] = [
@@ -36,7 +37,8 @@ export const prompts: Prompt[] = [
         "role": "assistant",
         "content": "Could you please update me on the latest progress?"
       }
-    ]
+    ],
+    tags: ['Translation', 'Chinese']
   },
   {
     id: "b6de46f3-6ad8-4499-ad4d-ca7aa9b52100",
@@ -64,6 +66,7 @@ export const prompts: Prompt[] = [
         "role": "assistant",
         "content": "Certainly, here's the latest progress: [Provide relevant information based on the context]"
       }
-    ]
+    ],
+    tags: ['Reply', 'English']
   }
 ]
