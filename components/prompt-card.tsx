@@ -30,7 +30,7 @@ export function PromptCard({ prompt }: PromptCardProp) {
       <CardFooter>
         <div className='flex space-x-4 items-center'>
           {prompt.tags.map((tag) => (
-            <Badge variant='outline' className='font-normal'>
+            <Badge key={tag} variant='outline' className='font-normal'>
               {tag}
             </Badge>
           ))}
