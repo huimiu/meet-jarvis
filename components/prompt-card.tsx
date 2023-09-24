@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import {
   Card,
   CardContent,
@@ -17,8 +19,14 @@ interface PromptCardProp {
 }
 
 export function PromptCard({ prompt }: PromptCardProp) {
+  const router = useRouter();
   return (
-    <Card className='hover:cursor-pointer'>
+    <Card
+      className='hover:cursor-pointer'
+      onClick={(e) => {
+        router.push(`/prompts/${prompt.id}`);
+      }}
+    >
       <CardHeader className='grid items-start'>
         <div>
           <CardTitle>{prompt.name}</CardTitle>

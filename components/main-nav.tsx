@@ -3,39 +3,34 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const examples = [
-  {
-    name: 'Home',
-    href: '/',
-  },
-  {
-    name: 'Prompts',
-    href: '/prompts',
-  },
-];
-
-export function MainNav({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+export function MainNav() {
   const pathname = usePathname();
 
   return (
     <div className='mr-4 hidden md:flex'>
       <nav className='flex items-center space-x-8 text-base font-normal'>
-        {examples.map((e) => (
-          <Link
-            key={e.href}
-            href={e.href}
-            className={
-              pathname === e.href
-                ? 'text-zinc-300 hover:text-zinc-400'
-                : 'text-zinc-500 hover:text-zinc-400'
-            }
-          >
-            {e.name}
-          </Link>
-        ))}
+        <Link
+          key='home'
+          href='/'
+          className={
+            pathname === '/'
+              ? 'text-zinc-300 hover:text-zinc-400'
+              : 'text-zinc-500 hover:text-zinc-400'
+          }
+        >
+          Home
+        </Link>
+        <Link
+          key='prompts'
+          href='/prompts'
+          className={
+            pathname.startsWith('/prompts')
+              ? 'text-zinc-300 hover:text-zinc-400'
+              : 'text-zinc-500 hover:text-zinc-400'
+          }
+        >
+          Prompts
+        </Link>
       </nav>
     </div>
   );
