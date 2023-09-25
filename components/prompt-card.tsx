@@ -24,7 +24,7 @@ export function PromptCard({ prompt }: PromptCardProp) {
     <Card
       className='hover:cursor-pointer'
       onClick={(e) => {
-        router.push(`/prompts/${prompt.id}`);
+        router.push(`/prompt/${prompt.id}`);
       }}
     >
       <CardHeader className='grid items-start'>

@@ -21,15 +21,15 @@ export function MainNav() {
           Home
         </Link>
         <Link
-          key='prompts'
-          href='/prompts'
+          key='prompt'
+          href='/prompt'
           className={
-            pathname.startsWith('/prompts')
+            pathname.startsWith('/prompt')
               ? 'text-zinc-300 hover:text-zinc-400'
               : 'text-zinc-500 hover:text-zinc-400'
           }
         >
-          Prompts
+          Prompt
         </Link>
       </nav>
     </div>
