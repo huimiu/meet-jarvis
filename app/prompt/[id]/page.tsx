@@ -12,14 +12,15 @@ export default function PromptDetail() {
   const router = useRouter();
 
   return (
-    <div>
-      <Button variant='ghost' onClick={router.back}>
-        <ArrowLeft className='mr-2 h-4 w-4' />
-        Back
-      </Button>
+    <div className='container py-6 grid h-full items-stretch gap-3'>
+      <div className=''>
+        <Button variant='ghost' onClick={router.back}>
+          <ArrowLeft className='mr-2 h-4 w-4' />
+          Back
+        </Button>
+      </div>
       <Textarea
-        placeholder='Tell us a little bit about yourself'
-        className='resize-none'
+        className='resize-none h-[120px]'
         value={JSON.stringify(getPrompt(params.id as string))}
       />
     </div>
