@@ -36,7 +36,7 @@ export function PromptCard({ prompt }: PromptCardProp) {
         <CardDescription>{JSON.stringify(prompt.messages)}</CardDescription>
       </CardContent>
       <CardFooter>
-        <div className='flex space-x-4 items-center'>
+        <div className='flex space-x-2 items-center'>
           {prompt.tags.map((tag) => (
             <Badge key={tag} variant='outline' className='font-normal'>
               {tag}

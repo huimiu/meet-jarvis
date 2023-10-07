@@ -20,7 +20,7 @@ export default function PromptDetail() {
         </Button>
       </div>
       <Textarea
-        className='resize-none h-[120px]'
+        className='resize-none h-[220px]'
         value={JSON.stringify(getPrompt(params.id as string))}
       />
     </div>
