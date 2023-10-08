@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Prompt, prompts } from '@/data/prompts';
+import { Prompt } from '@/data/prompts';
 
 import { ApiKey } from './api-key';
 import { CopyButton } from './copy-button';
@@ -11,6 +11,7 @@ import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 
 export function ChatPanel() {
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt>();
@@ -21,9 +22,15 @@ export function ChatPanel() {
     setAnswer('');
   };
 
-  function copyResponse() {
+  const copyResponse = () => {
     if (answer) navigator.clipboard.writeText(answer);
-  }
+  };
+
+  useEffect(() => {
+    getPrompts().then((res) => {
+      setPrompts(res.data);
+    });
+  }, []);
 
   return (
     <div className='grid gap-2'>
@@ -103,3 +110,13 @@ const aiCompletion = async (question: string) => {
     },
   }).then((res) => res.json());
 };
+
+// Get the prompt array from redis
+async function getPrompts(): Promise<any> {
+  return fetch('/api/prompts', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json());
+}

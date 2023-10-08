@@ -77,7 +77,7 @@ export default function PromptDetail() {
   );
 }
 
-// Get the prompt array from redis
+// Filter the prompt by id
 async function getPrompt(id: string) {
   let messages: ChatModel[] = [];
   const prompts = await fetch('/api/prompts', {
@@ -86,7 +86,6 @@ async function getPrompt(id: string) {
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json());
-  console.log('prompts:', prompts);
   prompts.data.forEach((prompt: { id: string; messages: ChatModel[] }) => {
     if (prompt.id === id) {
       messages = prompt.messages;
