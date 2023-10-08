@@ -66,7 +66,6 @@ export function ChatPanel() {
             </Button>
           ) : (
             <Button
-              variant='outline'
               onClick={async () => {
                 setLoading(true);
                 const res = await aiCompletion(question);
