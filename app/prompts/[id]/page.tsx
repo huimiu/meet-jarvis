@@ -25,12 +25,12 @@ export default function PromptDetail() {
   return (
     <div className='container py-6 grid h-full items-stretch gap-6'>
       <div>
-        <Button variant='ghost' onClick={router.back}>
+        <Button variant='outline' onClick={router.back}>
           <ArrowLeft className='mr-2 h-4 w-4' />
           Back
         </Button>
       </div>
-      <div className='grid gap-8 px-20'>
+      <div className='grid gap-6 px-2 md:px-20'>
         <div className='grid gap-3'>
           <Label htmlFor='system'>System</Label>
           <Textarea
@@ -60,6 +60,10 @@ export default function PromptDetail() {
               setAssistantValue(e.target.value);
             }}
           />
+        </div>
+        <div className='flex w-full space-x-2'>
+          <Button className='ml-auto'>Save</Button>
+          <Button variant='outline'>Delete</Button>
         </div>
       </div>
     </div>

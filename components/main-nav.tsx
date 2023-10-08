@@ -7,7 +7,7 @@ export function MainNav() {
   const pathname = usePathname();
 
   return (
-    <div className='mr-4 hidden md:flex'>
+    <div className='mr-4 flex'>
       <nav className='flex items-center space-x-8 text-base font-normal'>
         <Link
           key='home'

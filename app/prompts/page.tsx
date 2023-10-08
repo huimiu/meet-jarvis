@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Prompts() {
   return (
-    <div className='container grid md:gap-4 xl:gap-4 py-6'>
+    <div className='container grid gap-4 py-6'>
       {prompts.map((p) => (
         <PromptCard key={p.id} prompt={p} />
       ))}
