@@ -2,25 +2,27 @@
 
 import { ArrowLeft } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatModel, prompts } from '@/data/prompts';
+import { ChatModel } from '@/data/prompts';
 
 export default function PromptDetail() {
   const params = useParams();
   const router = useRouter();
-  const [systemValue, setSystemValue] = useState<string>(
-    getPrompt(params.id as string)[0].content
-  );
-  const [userValue, setUserValue] = useState<string>(
-    getPrompt(params.id as string)[1].content
-  );
-  const [assistantValue, setAssistantValue] = useState<string>(
-    getPrompt(params.id as string)[2].content
-  );
+  const [systemValue, setSystemValue] = useState('');
+  const [userValue, setUserValue] = useState('');
+  const [assistantValue, setAssistantValue] = useState('');
+
+  useEffect(() => {
+    getPrompt(params.id as string).then((res) => {
+      setSystemValue(res[0].content);
+      setUserValue(res[1].content);
+      setAssistantValue(res[2].content);
+    });
+  }, []);
 
   return (
     <div className='container py-6 grid h-full items-stretch gap-6'>
@@ -62,7 +64,12 @@ export default function PromptDetail() {
           />
         </div>
         <div className='flex w-full space-x-2'>
-          <Button className='ml-auto'>Save</Button>
+          <Button
+            className='ml-auto'
+            onClick={async () => await savePrompt('')}
+          >
+            Save
+          </Button>
           <Button variant='outline'>Delete</Button>
         </div>
       </div>
@@ -70,13 +77,29 @@ export default function PromptDetail() {
   );
 }
 
-// Get the prop value of messages from the prompts array
-function getPrompt(id: string) {
+// Get the prompt array from redis
+async function getPrompt(id: string) {
   let messages: ChatModel[] = [];
-  prompts.forEach((prompt) => {
+  const prompts = await fetch('/api/prompts', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json());
+  console.log('prompts:', prompts);
+  prompts.data.forEach((prompt: { id: string; messages: ChatModel[] }) => {
     if (prompt.id === id) {
       messages = prompt.messages;
     }
   });
   return messages;
 }
+
+const savePrompt = async (prompt: string) => {
+  return await fetch('/api/prompts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json());
+};
