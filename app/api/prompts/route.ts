@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { Prompt } from '@/data/prompts';
 import { kv } from '@vercel/kv';
 
 // export async function POST(req: NextRequest) {
@@ -80,7 +81,15 @@ import { kv } from '@vercel/kv';
 
 export async function GET(req: NextRequest) {
   try {
-    return NextResponse.json({ data: await kv.zrange('prompts', 0, -1) });
+    const promptIds = await kv.smembers('prompt');
+    let prompts: Prompt[] = [];
+    promptIds.forEach(async (id) => {
+      const p = await kv.get(`prompt-${id}`);
+      if (p) {
+        prompts.push(p as Prompt);
+      }
+    });
+    return NextResponse.json({ data: prompts });
   } catch (e) {
     return NextResponse.error();
   }

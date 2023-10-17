@@ -52,7 +52,7 @@ export default function PromptDetail() {
         <div className='flex w-full space-x-2'>
           <Button
             className='ml-auto'
-            onClick={async () => await savePrompt('')}
+            onClick={async () => await createPrompt('')}
           >
             Save
           </Button>
@@ -91,7 +91,7 @@ async function getPrompt(id?: string) {
   return messages;
 }
 
-const savePrompt = async (prompt: string) => {
+const createPrompt = async (prompt: string) => {
   return await fetch('/api/prompts', {
     method: 'POST',
     headers: {
