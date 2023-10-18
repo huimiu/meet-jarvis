@@ -8,7 +8,7 @@ import { PromptLoading } from '@/components/prompt-loading';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatModel } from '@/data/prompts';
+import { Prompt } from '@/data/prompts';
 
 export default function PromptDetail() {
   const params = useParams();
@@ -22,9 +22,9 @@ export default function PromptDetail() {
     setLoading(true);
     getPrompt(params.id as string)
       .then((res) => {
-        setSystemValue(res[0].content);
-        setUserValue(res[1].content);
-        setAssistantValue(res[2].content);
+        setSystemValue(res.messages[0].content);
+        setUserValue(res.messages[1].content);
+        setAssistantValue(res.messages[2].content);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -88,19 +88,16 @@ export default function PromptDetail() {
 
 // Filter the prompt by id
 async function getPrompt(id: string) {
-  let messages: ChatModel[] = [];
-  const prompts = await fetch('/api/prompts', {
-    method: 'GET',
+  const prompt: Prompt = await fetch('/api/prompt/detail', {
+    method: 'POST',
+    body: JSON.stringify({
+      id,
+    }),
     headers: {
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json());
-  prompts.data.forEach((prompt: { id: string; messages: ChatModel[] }) => {
-    if (prompt.id === id) {
-      messages = prompt.messages;
-    }
-  });
-  return messages;
+  return prompt;
 }
 
 const savePrompt = async (prompt: string) => {

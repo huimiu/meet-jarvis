@@ -4,12 +4,19 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatModel } from '@/data/prompts';
+
+interface Prompt {
+  name: string;
+  messages: string;
+  tags: string;
+}
 
 export default function PromptDetail() {
   const [saving, setSaving] = useState(false);
+  const [name, setName] = useState('');
   const [systemValue, setSystemValue] = useState('');
   const [userValue, setUserValue] = useState('');
   const [assistantValue, setAssistantValue] = useState('');
@@ -19,6 +26,14 @@ export default function PromptDetail() {
   return (
     <div className='container py-6 grid h-full items-stretch gap-6'>
       <div className='grid gap-6 px-2'>
+        <div className='grid gap-3'>
+          <Label htmlFor='system'>Name</Label>
+          <Input
+            placeholder='Name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div className='grid gap-3'>
           <Label htmlFor='system'>System</Label>
           <Textarea
@@ -52,7 +67,17 @@ export default function PromptDetail() {
         <div className='flex w-full space-x-2'>
           <Button
             className='ml-auto'
-            onClick={async () => await createPrompt('')}
+            onClick={async () =>
+              await createPrompt(
+                name,
+                combineMessages({
+                  systemValue,
+                  userValue,
+                  assistantValue,
+                }),
+                'Spoken English'
+              )
+            }
           >
             Save
           </Button>
@@ -65,37 +90,24 @@ export default function PromptDetail() {
   );
 }
 
-/**
- * Get the prompt array from redis
- * If id is not provided, return empty array
- * Otherwise return the prompt with the id.
- * @param id
- * @returns
- */
-async function getPrompt(id?: string) {
-  if (!id) {
-    return [];
-  }
-  let messages: ChatModel[] = [];
-  const prompts = await fetch('/api/prompts', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => res.json());
-  prompts.data.forEach((prompt: { id: string; messages: ChatModel[] }) => {
-    if (prompt.id === id) {
-      messages = prompt.messages;
-    }
-  });
-  return messages;
-}
-
-const createPrompt = async (prompt: string) => {
-  return await fetch('/api/prompts', {
+const createPrompt = async (name: string, messages: string, tags: string) => {
+  return await fetch('/api/prompt/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((res) => res.json());
+    body: JSON.stringify({
+      name,
+      messages,
+      tags,
+    }),
+  });
+};
+
+const combineMessages = ({ systemValue, userValue, assistantValue }: any) => {
+  return JSON.stringify([
+    { role: 'System', content: systemValue },
+    { role: 'user', content: userValue },
+    { role: 'assistant', content: assistantValue },
+  ]);
 };

@@ -1,93 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 import { Prompt } from '@/data/prompts';
-import { kv } from '@vercel/kv';
+import { db } from '@/lib/kysely';
 
-// export async function POST(req: NextRequest) {
-//   try {
-//     await kv.zadd(
-//       'prompts',
-//       {
-//         score: 1,
-//         member: {
-//           id: '9cb0e66a-9937-465d-a188-2c4c4ae2401f',
-//           name: 'Rewrite with Spoken English',
-//           messages: [
-//             {
-//               role: 'system',
-//               content: `You are a native English speaker. The English you write is good at using connected sentences and is easy for others to understand.
-
-//             ## Goal
-//             - The user's input is in Chinese.
-//             - Rewrite the user's input in spoken English.
-
-//             ## Constraints
-//             - Don't ask the user for more information.
-//             - Maintain a modest tone.
-//             - The rewritten text should be clear and to the point, avoiding unnecessary verbosity.
-//             `,
-//             },
-//             {
-//               role: 'user',
-//               content: '你可以告诉我最新的进展吗？',
-//             },
-//             {
-//               role: 'assistant',
-//               content: 'Could you please update me on the latest progress?',
-//             },
-//           ],
-//           tags: ['Translation', 'Chinese'],
-//         },
-//       },
-//       {
-//         score: 2,
-//         member: {
-//           id: 'b6de46f3-6ad8-4499-ad4d-ca7aa9b52100',
-//           name: 'Polite Reply',
-//           messages: [
-//             {
-//               role: 'system',
-//               content: `You are a native English speaker. You are very good at responding to what others say in a polite and friendly manner.
-
-//         ## Goal
-//         - The user's input is in English.
-//         - Reply to the user's input politely in spoken English based on the context.
-
-//         ## Constraints
-//         - Don't ask the user for more information.
-//         - Maintain a modest tone.
-//         - The reply should be clear and to the point, avoiding unnecessary verbosity.
-//         `,
-//             },
-//             {
-//               role: 'user',
-//               content: 'Could you please update me on the latest progress?',
-//             },
-//             {
-//               role: 'assistant',
-//               content:
-//                 "Certainly, here's the latest progress: [Provide relevant information based on the context]",
-//             },
-//           ],
-//           tags: ['Reply', 'English'],
-//         },
-//       }
-//     );
-//     return NextResponse.json({ data: await kv.zrange('prompts', 0, -1) });
-//   } catch (e) {
-//     return NextResponse.error();
-//   }
-// }
-
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const promptIds = await kv.smembers('prompt');
+    const records = await db.selectFrom('prompts').selectAll().execute();
     let prompts: Prompt[] = [];
-    promptIds.forEach(async (id) => {
-      const p = await kv.get(`prompt-${id}`);
-      if (p) {
-        prompts.push(p as Prompt);
-      }
+    records.forEach((r) => {
+      prompts.push({
+        id: r.id,
+        name: r.name,
+        messages: JSON.parse(r.messages),
+        tags: r.tags.split(','),
+      });
     });
     return NextResponse.json({ data: prompts });
   } catch (e) {
