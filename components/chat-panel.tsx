@@ -113,7 +113,7 @@ const aiCompletion = async (question: string) => {
 
 // Get the prompt array from redis
 async function getPrompts(): Promise<any> {
-  return fetch('/api/prompts', {
+  return fetch('/api/prompt/list', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

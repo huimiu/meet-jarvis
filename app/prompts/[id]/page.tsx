@@ -112,7 +112,7 @@ async function getPrompt(id: string) {
 }
 
 const savePrompt = async (prompt: string) => {
-  return await fetch('/api/prompts', {
+  return await fetch('/api/prompt/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

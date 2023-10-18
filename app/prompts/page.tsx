@@ -55,7 +55,7 @@ export default function Prompts() {
 
 // Get the prompt array from redis
 async function getPrompts(): Promise<any> {
-  return fetch('/api/prompts', {
+  return fetch('/api/prompt/list', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
