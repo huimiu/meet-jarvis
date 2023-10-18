@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { PromptLoading } from '@/components/prompt-loading';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Prompt } from '@/data/prompts';
@@ -14,6 +15,7 @@ export default function PromptDetail() {
   const params = useParams();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('');
   const [systemValue, setSystemValue] = useState('');
   const [userValue, setUserValue] = useState('');
   const [assistantValue, setAssistantValue] = useState('');
@@ -22,6 +24,7 @@ export default function PromptDetail() {
     setLoading(true);
     getPrompt(params.id as string)
       .then((res) => {
+        setName(res.name);
         setSystemValue(res.messages[0].content);
         setUserValue(res.messages[1].content);
         setAssistantValue(res.messages[2].content);
@@ -41,6 +44,14 @@ export default function PromptDetail() {
         <PromptLoading />
       ) : (
         <div className='grid gap-6 px-2 md:px-20'>
+          <div className='grid gap-3'>
+            <Label htmlFor='system'>Name</Label>
+            <Input
+              placeholder='Name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
           <div className='grid gap-3'>
             <Label htmlFor='system'>System</Label>
             <Textarea
