@@ -80,7 +80,7 @@ export function PromptSelector({
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup className='pt-0'>
-            <CommandItem onSelect={() => router.push('/examples')}>
+            <CommandItem onSelect={() => router.push('/prompts')}>
               More prompts
             </CommandItem>
           </CommandGroup>
