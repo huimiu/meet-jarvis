@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 export function ApiInfo() {
@@ -18,11 +14,10 @@ export function ApiInfo() {
   useEffect(() => {
     getConfigurations()
       .then((res) => {
-        setPrompts(res.data);
+        setApiKey(res.apiKey);
+        setApiEndpoint(res.apiEndpoint);
+        setDeploymentName(res.deploymentName)
       })
-      .finally(() => {
-        setLoading(false);
-      });
   }, []);
 
   return (
@@ -36,7 +31,7 @@ export function ApiInfo() {
         <div className='grid gap-4'>
           <div className='grid gap-1.5'>
             <Label htmlFor='apikey'>API Key</Label>
-            <Input id='apikey' className='h-8' placeholder='API key' />
+            <Input id='apikey' className='h-8' placeholder='API key' value={apiKey} />
           </div>
           <div className='grid gap-1.5'>
             <Label htmlFor='apiEndpoint'>API Endpoint</Label>
@@ -44,6 +39,7 @@ export function ApiInfo() {
               id='apiEndpoint'
               className='h-8'
               placeholder='API Endpoint'
+              value={apiEndpoint}
             />
           </div>
           <div className='grid gap-1.5'>
@@ -52,7 +48,11 @@ export function ApiInfo() {
               id='deploymentName'
               className='h-8'
               placeholder='Deployment Name'
+              value={deploymentName}
             />
+          </div>
+          <div>
+            <Button>Update</Button>
           </div>
         </div>
       </PopoverContent>
@@ -63,6 +63,19 @@ export function ApiInfo() {
 async function getConfigurations(): Promise<any> {
   return fetch('/api/configuration/detail', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json());
+}
+async function updateConfigruations(apiKey: string, apiEndpoint: string, deploymentName: string): Promise<any> {
+  return fetch('/api/configuration/update', {
+    method: 'POST',
+    body: JSON.stringify({
+      apiKey,
+      apiEndpoint,
+      deploymentName
+    }),
     headers: {
       'Content-Type': 'application/json',
     },
