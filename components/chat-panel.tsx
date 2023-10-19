@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { Prompt } from '@/data/prompts';
 
-import { ApiKey } from './api-key';
+import { ApiInfo } from './api-info';
 import { CopyButton } from './copy-button';
 import { PromptSelector } from './prompt-selector';
 import { Button } from './ui/button';
@@ -45,7 +45,7 @@ export function ChatPanel() {
         </div>
         <div className='ml-auto flex space-x-2'>
           <CopyButton copyHandler={copyResponse} />
-          <ApiKey />
+          <ApiInfo />
         </div>
       </div>
 
